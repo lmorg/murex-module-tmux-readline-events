@@ -1,0 +1,71 @@
+event onKeyPress edit={^E} {
+    -> [ Interrupt ] -> set: evt
+
+    test define hasfunc {
+        "OutRegexp": "^[_a-zA-Z0-9]+$"
+    }
+
+    test define funcblock {
+        "OutRegexp": "[a-zA-Z0-9]+"
+    }
+
+    if { $TMUX } then {
+        $evt[ Line ] -> murex-parser: $evt[Pos] -> set parsed
+
+        if { $parsed[FuncName] } then {
+            set edit=true
+
+            switch {
+                if { $parsed[Parameters] -> len } {
+                    $parsed[Parameters] -> len -> set len
+
+                    for ( i=len-1; i>=0; i-- ) {
+                        $parsed[Parameters] -> [ $i ] -> set file
+                        
+                        if { and {$edit} {g: $file} } {
+                            lockfile path EDITOR -> set lockfile
+                            lockfile lock EDITOR
+                            tmux new-window (cd ${pwd}; $EDITOR $file; rm $lockfile)
+                            lockfile wait EDITOR
+                            set edit=false
+                        }
+                    }
+                }
+
+                case { and {$edit} {runtime: --funcs -> [ $parsed[FuncName] ]} } {
+                    $parsed -> [ <test_hasfunc> FuncName ] -> set func
+                    runtime: --funcs -> [ $func ] -> [ <test_funcblock> Block ] -> set code
+                    out "func $func {$code\n}" -> tmp -> set tmp
+                    
+                    lockfile path EDITOR -> set lockfile
+                    lockfile lock EDITOR
+                    tmux new-window ($EDITOR $tmp; rm $lockfile)
+                    lockfile wait EDITOR
+                    source $tmp
+                    rm $tmp
+                    tout json {
+                        "HintText": "Function updated.",
+                        "IgnoreKey": true
+                    }
+                }
+      
+                case {$edit} {
+                    tout json {
+                        "HintText": "Nothing to edit.",
+                        "IgnoreKey": true
+                    }
+                }
+
+                catch {
+                    tout json { "IgnoreKey": true }
+                }
+            }
+
+        } else {
+            tout json { "IgnoreKey": true }
+        }
+
+    } else {
+        tout json { "HintText": "tmux doesn't appear to be running. Please start tmux to take advantage of the edit feature." }
+    }
+}

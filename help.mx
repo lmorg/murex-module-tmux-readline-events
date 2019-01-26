@@ -1,0 +1,52 @@
+event onKeyPress help={F1-VT100} {
+    -> [ Interrupt ] -> set: evt
+    set quit="\n\nPress q to quit."
+
+    if { $TMUX } then {
+        $evt[ Line ] -> murex-parser: $evt[Pos] -> [ FuncName ] -> set: func
+    
+        if { $func } then {
+  
+            switch {
+                case { runtime: --funcs -> [ $func ] } {
+                    runtime: --funcs -> [ $func ] -> [ Block ] -> set code
+                    out "func $func {$code\n}" -> tmp -> set tmp
+                    tmux split -h (less -N $tmp; rm $tmp)
+                }
+
+                case { bexists: $func } {
+                    tmux split -h ($SHELL -c "
+                        trypipe {
+                            murex-docs $func -> less
+                        };
+                        catch {
+                            out (That murex builtin doesn't yet include a help document.$quit) -> less
+                        }
+                    ")
+                }
+
+                catch {
+                    tmux split -h ($SHELL -c "
+                        try { man $func };
+                        catch {
+                            out (No man page exists for that command.$quit) -> less
+                        }
+                    ")
+                    
+                    tmux split -v -p 30 ($SHELL -c "
+                        config: set http user-agent curl/1.0;
+                        config: set http timeout 2;
+                        trypipe {
+                            get: https://cheat.sh/$func -> [ Body ] -> less -RN
+                        };
+                        catch { exit 1 }
+                    ")
+                }
+            }
+      
+        }
+  
+    } else {
+        tout json { "HintText": "tmux doesn't appear to be running. Please start tmux to take advantage of the F1 feature." }
+    }
+}

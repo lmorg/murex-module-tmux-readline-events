@@ -1,0 +1,8 @@
+[
+	{
+		"Name": "tmux-readline-events",
+		"Summary": "Provides help and edit hotkeys",
+		"Version": "1.0",
+		"Source": "module.mx"
+	}
+]
