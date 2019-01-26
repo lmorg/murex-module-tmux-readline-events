@@ -1,8 +1,14 @@
 [
 	{
-		"Name": "tmux-readline-events",
-		"Summary": "Provides help and edit hotkeys",
+		"Name": "tmux-readline-events-help",
+		"Summary": "Provides help hotkey: {F1}",
 		"Version": "1.0",
-		"Source": "module.mx"
+		"Source": "help.mx"
+	},
+	{
+		"Name": "tmux-readline-events-edit",
+		"Summary": "Provides edit hotkey: {CTRL+E}",
+		"Version": "1.0",
+		"Source": "edit.mx"
 	}
 ]
