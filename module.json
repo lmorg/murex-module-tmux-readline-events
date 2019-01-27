@@ -7,8 +7,8 @@
 	},
 	{
 		"Name": "tmux-readline-events-edit",
-		"Summary": "Provides edit hotkey: {CTRL+E}",
-		"Version": "1.0",
+		"Summary": "Provides edit hotkey: {CTRL+E} and `config` handler for $EDITOR",
+		"Version": "1.1",
 		"Source": "edit.mx"
 	}
 ]

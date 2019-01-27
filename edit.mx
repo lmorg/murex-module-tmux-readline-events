@@ -1,3 +1,36 @@
+# Create a config option to set $EDITOR
+# It's a little pointless to be honest, but newer users unfamiliar with a
+# typical UNIX environment might find it useful.
+
+switch {
+    if { which vim   } { out vim   }
+    if { which vi    } { out vi    }
+    if { which nano  } { out nano  }
+    if { which emacs } { out emacs }
+} -> format json -> set options
+
+if { $EDITOR } else {
+    export EDITOR=$options[0]
+}
+
+private get.shell.editor { $EDITOR }
+
+config define shell editor ({
+    "Description":  "Which mode to render images to the terminal.",
+    "DataType":     "str",
+    "Default":      "$EDITOR",
+    "Options":      $options,
+    "Global":       true,
+    "Dynamic": {
+        "Read":  ({ get.shell.editor }),
+        "Write": ({ -> export EDITOR })
+    }
+})
+
+!set options
+
+# Set the key binding on readline
+
 event onKeyPress edit={^E} {
     -> [ Interrupt ] -> set: evt
 
@@ -23,11 +56,11 @@ event onKeyPress edit={^E} {
                         $parsed[Parameters] -> [ $i ] -> set file
                         
                         if { and {$edit} {g: $file} } {
-                            lockfile path EDITOR -> set lockfile
-                            lockfile lock EDITOR
-                            tmux new-window (cd ${pwd}; $EDITOR $file; rm $lockfile)
-                            lockfile wait EDITOR
-                            set edit=false
+                            lockfile: path EDITOR -> set lockfile
+                            lockfile: lock EDITOR
+                            tmux: new-window (cd ${pwd}; $EDITOR $file; rm $lockfile)
+                            lockfile: wait EDITOR
+                            set: edit=false
                         }
                     }
                 }
@@ -37,32 +70,30 @@ event onKeyPress edit={^E} {
                     runtime: --funcs -> [ $func ] -> [ <test_funcblock> Block ] -> set code
                     out "func $func {$code\n}" -> tmp -> set tmp
                     
-                    lockfile path EDITOR -> set lockfile
-                    lockfile lock EDITOR
-                    tmux new-window ($EDITOR $tmp; rm $lockfile)
-                    lockfile wait EDITOR
-                    source $tmp
-                    rm $tmp
-                    tout json {
-                        "HintText": "Function updated.",
-                        "IgnoreKey": true
+                    lockfile: path EDITOR -> set lockfile
+                    lockfile: lock EDITOR
+                    tmux: new-window ($EDITOR $tmp; rm $lockfile)
+                    lockfile: wait EDITOR
+                    source: $tmp
+                    rm: $tmp
+                    tout: json {
+                        "HintText": "Function updated."
                     }
                 }
       
                 case {$edit} {
                     tout json {
-                        "HintText": "Nothing to edit.",
-                        "IgnoreKey": true
+                        "HintText": "Nothing to edit."
                     }
                 }
 
-                catch {
-                    tout json { "IgnoreKey": true }
-                }
+                #catch {
+                #    tout json { "IgnoreKey": true }
+                #}
             }
 
-        } else {
-            tout json { "IgnoreKey": true }
+        #} else {
+        #    tout json { "IgnoreKey": true }
         }
 
     } else {
