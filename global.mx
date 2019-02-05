@@ -1,0 +1,12 @@
+func tsplit {
+    # Splits the current tmux session horizontally and runs a murex code block
+    if { $TMUX } then {
+        trypipe {
+            params -> [ 1 ] -> set cmd
+            pwd -> set PWD
+            tmux split -h ($SHELL --load-modules -c "cd $PWD; source $cmd")
+        }
+    } else {
+        err "tmux is not running."
+    }
+} 

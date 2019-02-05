@@ -1,5 +1,11 @@
 [
 	{
+		"Name": "tmux-global-functions",
+		"Summary": "Some useful functions. Will be a dependency of the other modules in this package",
+		"Version": "1.0",
+		"Source": "global.mx"
+	},
+	{
 		"Name": "tmux-readline-events-help",
 		"Summary": "Provides help hotkey: {F1}",
 		"Version": "1.0",
