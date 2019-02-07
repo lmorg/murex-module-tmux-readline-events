@@ -2,19 +2,77 @@
 	{
 		"Name": "global-functions",
 		"Summary": "Some useful functions. Will be a dependency of the other modules in this package",
-		"Version": "1.0",
-		"Source": "global.mx"
+		"Version": "1.1",
+		"Source": "global.mx",
+		"Dependencies": {
+			"Optional": [],
+			"Required": [
+				"tmux"
+			],
+			"Platform": [
+				"posix"
+			]
+		}
 	},
 	{
 		"Name": "help",
 		"Summary": "Provides help hotkey: {F1}",
 		"Version": "1.0",
-		"Source": "help.mx"
+		"Source": "help.mx",
+		"Dependencies": {
+			"Optional": [
+				"vi",
+				"vim",
+				"nano",
+				"emacs"
+			],
+			"Required": [
+				"tmux",
+				"less",
+				"man"			],
+			"Platform": [
+				"posix"
+			]
+		}
 	},
 	{
 		"Name": "edit",
 		"Summary": "Provides edit hotkey: {CTRL+E} and `config` handler for $EDITOR",
 		"Version": "1.1",
-		"Source": "edit.mx"
+		"Source": "edit.mx",
+		"Dependencies": {
+			"Optional": [],
+			"Required": [
+				"tsplit",
+				"tmux",
+				"rm"
+			],
+			"Platform": [
+				"posix"
+			]
+		}
+	},
+	{
+		"Name": "markdown",
+		"Summary": "Provides markdown support",
+		"Version": "1.0",
+		"Source": "markdown.mx",
+		"Dependencies": {
+			"Optional": [
+				"bat",
+				"pandoc",
+				"lynx",
+				"less",
+				"more"
+			],
+			"Required": [
+				"tsplit",
+				"tmux",
+				"cat"
+			],
+			"Platform": [
+				"posix"
+			]
+		}
 	}
 ]

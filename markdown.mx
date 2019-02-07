@@ -1,0 +1,48 @@
+switch {
+    if {
+        which bat
+    } { out bat }
+
+    if {
+        and { which pandoc } { which lynx }
+    } { out pandoc-lynx }
+
+    if { which less } { out less }
+    if { which more } { out more }
+
+} -> format json -> set options
+
+config define open markdown ({
+    "Description":  "Which mode to render markdown to the terminal.",
+    "DataType":     "str",
+    "Default":      "$options[0]",
+    "Options":      $options
+})
+
+func md {
+    # Render markdown documents in the terminal
+    set exe
+    set file=$PWD/$ARGS[1]
+
+    switch ${config get open markdown} {
+        case bat {
+            set exe="bat $file"
+        }
+        
+        case pandoc-lynx {
+            set exe="pandoc $file -> lynx -stdin"
+        }
+        
+        case less { set exe="less $file" }
+        case more { set exe="more $file" }
+        
+        catch { set exe="cat $file" }
+    }
+
+    trypipe {
+        params -> [ 1 ] -> set doc
+        tsplit ({ $exe })
+    }; catch {
+        err "No parameters specified"
+    }
+}

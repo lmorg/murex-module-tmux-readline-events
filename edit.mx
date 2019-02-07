@@ -16,7 +16,7 @@ if { $EDITOR } else {
 private get.shell.editor { $EDITOR }
 
 config define shell editor ({
-    "Description":  "Which mode to render images to the terminal.",
+    "Description":  "Default text editor to use",
     "DataType":     "str",
     "Default":      "$EDITOR",
     "Options":      $options,
@@ -26,8 +26,6 @@ config define shell editor ({
         "Write": ({ -> export EDITOR })
     }
 })
-
-!set options
 
 # Set the key binding on readline
 
