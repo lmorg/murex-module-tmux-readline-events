@@ -85,13 +85,8 @@ event onKeyPress edit={^E} {
                     }
                 }
 
-                #catch {
-                #    tout json { "IgnoreKey": true }
-                #}
             }
 
-        #} else {
-        #    tout json { "IgnoreKey": true }
         }
 
     } else {

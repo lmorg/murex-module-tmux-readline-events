@@ -17,19 +17,15 @@
 	{
 		"Name": "help",
 		"Summary": "Provides help hotkey: {F1}",
-		"Version": "1.0",
+		"Version": "1.1",
 		"Source": "help.mx",
 		"Dependencies": {
-			"Optional": [
-				"vi",
-				"vim",
-				"nano",
-				"emacs"
-			],
+			"Optional": [],
 			"Required": [
 				"tmux",
 				"less",
-				"man"			],
+				"man"
+			],
 			"Platform": [
 				"posix"
 			]
@@ -38,11 +34,16 @@
 	{
 		"Name": "edit",
 		"Summary": "Provides edit hotkey: {CTRL+E} and `config` handler for $EDITOR",
-		"Version": "1.1",
+		"Version": "1.2",
 		"Source": "edit.mx",
 		"Dependencies": {
-			"Optional": [],
+			"Optional": [
+				"vim",
+				"nano",
+				"emacs"
+			],
 			"Required": [
+				"vi",
 				"tsplit",
 				"tmux",
 				"rm"

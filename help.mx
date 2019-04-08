@@ -2,19 +2,56 @@ event onKeyPress help={F1-VT100} {
     -> [ Interrupt ] -> set: evt
     set quit="\n\nPress q to quit."
 
+    test define func {
+        "OutRegexp": ([\_\-\.a-zA-Z0-9]+),
+        "ExitNum": 0
+    }
+
+    test define code {
+        "OutRegexp": ([a-z]),
+        "ExitNum": 0
+    }
+
+    test define exists {
+        "OutRegexp": ("Missing": null),
+        "ExitNum": 0
+    }
+
+    test define tmpfile {
+        "OutBlock": ({ -> set f; ls $f }),
+        "ErrRegexp": (^$),
+        "ExitNum": 0
+    }
+
+    test state tmpfile {
+        out "tmp=$tmp"
+    }
+
+    test state vars {
+        runtime --variables -> pretty
+    }
+
+    test state fids {
+        runtime --fids -> pretty
+    }
+
     if { $TMUX } then {
-        $evt[ Line ] -> murex-parser: $evt[Pos] -> [ FuncName ] -> set: func
+        $evt[ Line ] -> murex-parser: $evt[Pos] -> [ <test_func> FuncName ] -> set: func
     
         if { $func } then {
   
             switch {
                 case { runtime: --funcs -> [ $func ] } {
-                    runtime: --funcs -> [ $func ] -> [ Block ] -> set code
-                    out "func $func {$code\n}" -> tmp -> set tmp
-                    tmux split -h (less -N $tmp; rm $tmp)
+                    runtime: --funcs -> [ $func ] -> [ <test_code> Block ] -> set code
+                    out "func $func {$code\n}" -> tmp <test_tmpfile> -> set tmp
+                    if { os linux } then {
+                        tmux <state_vars> <state_tmpfile> split -h (less -N $tmp; rm $tmp)
+                    } else {
+                        tmux <state_vars> <state_tmpfile> split -h (less $tmp; rm $tmp)
+                    }
                 }
 
-                case { bexists: $func } {
+                case { bexists: <test_exists> $func } {
                     tmux split -h ($SHELL -c "
                         trypipe {
                             murex-docs $func -> less
