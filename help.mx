@@ -1,3 +1,7 @@
+# If tmux is running, we split the window several times with useful information
+# on the active command in the interactive terminal. This is triggered via
+# pressing F1.
+
 event onKeyPress help={F1-VT100} {
     -> [ Interrupt ] -> set: evt
     set quit="\n\nPress q to quit."
