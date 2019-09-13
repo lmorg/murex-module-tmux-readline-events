@@ -10,3 +10,26 @@ func tsplit {
         err "tmux is not running."
     }
 }
+
+autocomplete set tmux { [
+    { "Dynamic": ({ tmux-commands }) },
+    { "Dynamic": ({ tmux-subcommands }) }
+]}
+
+private tmux-commands {
+    tmux start\; list-commands -> [:0]
+}
+
+test define-unit private tmux-commands {
+    "StdoutRegex": "([-a-z]+\\n)+"
+}
+
+
+private tmux-subcommands {
+    tmux start\; list-commands -> regexp m/$ARGS[1]/ -> regexp 'f#\[\-([-a-zA-Z0-9]+)#' -> foreach { -> jsplit "" -> format * } -> regexp m/[a-zA-Z0-9]/ -> prefix -
+}
+
+test define-unit private tmux-subcommands ({
+    "Parameters": ["attach-session"],
+    "StdoutRegex": "(-[a-zA-Z]\n)+"
+})
