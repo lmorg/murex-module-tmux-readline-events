@@ -10,3 +10,18 @@ func tsplit {
         err "tmux is not running."
     }
 }
+
+autocomplete set tmux {
+    [
+        {
+            "Dynamic": ({
+                 tmux start\; list-commands -> [:0]
+            })
+        },
+        {
+            "Dynamic": ({
+                 tmux start\; list-commands -> regexp m/$ARGS[1]/ -> regexp 'f#\[\-([-a-zA-Z0-9]+)#' -> foreach { -> jsplit "" -> format * } -> regexp m/[a-zA-Z0-9]/ -> prefix -
+            })
+        }
+    ]
+}
