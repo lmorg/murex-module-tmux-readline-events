@@ -7,23 +7,23 @@ event onKeyPress help={F1-VT100} {
     set quit="\n\nPress q to quit."
 
     test define func {
-        "OutRegexp": ([\_\-\.a-zA-Z0-9]+),
+        "StdoutRegex": ([\_\-\.a-zA-Z0-9]+),
         "ExitNum": 0
     }
 
     test define code {
-        "OutRegexp": ([a-z]),
+        "StdoutRegex": ([a-z]),
         "ExitNum": 0
     }
 
     test define exists {
-        "OutRegexp": ("Missing": null),
+        "StdoutRegex": ("Missing": null),
         "ExitNum": 0
     }
 
     test define tmpfile {
-        "OutBlock": ({ -> set f; ls $f }),
-        "ErrRegexp": (^$),
+        "StdoutBlock": ({ -> set f; ls $f }),
+        "StderrRegex": (^$),
         "ExitNum": 0
     }
 

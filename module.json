@@ -17,7 +17,7 @@
 	{
 		"Name": "help",
 		"Summary": "Provides help hotkey: {F1}",
-		"Version": "1.1",
+		"Version": "1.2",
 		"Source": "help.mx",
 		"Dependencies": {
 			"Optional": [],
@@ -34,7 +34,7 @@
 	{
 		"Name": "edit",
 		"Summary": "Provides edit hotkey: {CTRL+E} and `config` handler for $EDITOR",
-		"Version": "1.2",
+		"Version": "1.3",
 		"Source": "edit.mx",
 		"Dependencies": {
 			"Optional": [
