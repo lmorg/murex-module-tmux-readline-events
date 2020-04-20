@@ -1,7 +1,5 @@
 switch {
-    if {
-        which bat
-    } { out bat }
+    if { which bat } { out bat }
 
     if {
         and { which pandoc } { which lynx }
@@ -26,7 +24,7 @@ func md {
 
     switch ${config get open markdown} {
         case bat {
-            set exe="bat $file"
+            set exe="bat --paging=always $file"
         }
         
         case pandoc-lynx {
@@ -41,7 +39,8 @@ func md {
 
     trypipe {
         params -> [ 1 ] -> set doc
-        tsplit ({ $exe })
+        #tsplit ({ $exe })
+        tmux split -h $exe
     }; catch {
         err "No parameters specified"
     }

@@ -17,7 +17,7 @@
 	{
 		"Name": "help",
 		"Summary": "Provides help hotkey: {F1}",
-		"Version": "1.2",
+		"Version": "1.4",
 		"Source": "help.mx",
 		"Dependencies": {
 			"Optional": [],
@@ -56,7 +56,7 @@
 	{
 		"Name": "markdown",
 		"Summary": "Provides markdown support",
-		"Version": "1.0",
+		"Version": "1.1",
 		"Source": "markdown.mx",
 		"Dependencies": {
 			"Optional": [
