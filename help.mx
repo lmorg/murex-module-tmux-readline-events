@@ -91,3 +91,5 @@ event onKeyPress help={F1-VT100} {
         tout json { "HintText": "tmux doesn't appear to be running. Please start tmux to take advantage of the F1 feature." }
     }
 }
+
+

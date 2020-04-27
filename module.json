@@ -75,5 +75,20 @@
 				"posix"
 			]
 		}
+	},
+	{
+		"Name": "preview",
+		"Summary": "Opens a preview pane to the side of your terminal when {F9} hotkey pressed",
+		"Version": "1.1",
+		"Source": "preview.mx",
+		"Dependencies": {
+			"Required": [
+				"less"
+			]
+		],
+		"Platform": [
+			"posix"
+		]
 	}
+}
 ]
