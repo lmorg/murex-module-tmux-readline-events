@@ -83,7 +83,8 @@
 		"Source": "preview.mx",
 		"Dependencies": {
 			"Required": [
-				"less"
+				"less",
+				"tsplit"
 			]
 		],
 		"Platform": [
