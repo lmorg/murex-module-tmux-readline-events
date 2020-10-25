@@ -1,6 +1,0 @@
-event onKeyPress run={F9} {
-    -> [[ /Interrupt/Line ]] -> set: line
-    tsplit "{
-        $line -> pretty: --strict -> less -RN
-    }"
-}

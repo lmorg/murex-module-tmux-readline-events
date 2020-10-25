@@ -2,7 +2,7 @@
 	{
 		"Name": "global-functions",
 		"Summary": "Some useful functions. Will be a dependency of the other modules in this package",
-		"Version": "1.3",
+		"Version": "1.4",
 		"Source": "global.mx",
 		"Dependencies": {
 			"Optional": [],
@@ -17,7 +17,7 @@
 	{
 		"Name": "help",
 		"Summary": "Provides help hotkey: {F1}",
-		"Version": "1.4",
+		"Version": "1.5",
 		"Source": "help.mx",
 		"Dependencies": {
 			"Optional": [],
@@ -34,7 +34,7 @@
 	{
 		"Name": "edit",
 		"Summary": "Provides edit hotkey: {CTRL+E} and `config` handler for $EDITOR",
-		"Version": "1.3",
+		"Version": "1.6",
 		"Source": "edit.mx",
 		"Dependencies": {
 			"Optional": [
@@ -56,7 +56,7 @@
 	{
 		"Name": "markdown",
 		"Summary": "Provides markdown support",
-		"Version": "1.1",
+		"Version": "1.2",
 		"Source": "markdown.mx",
 		"Dependencies": {
 			"Optional": [
@@ -77,19 +77,19 @@
 		}
 	},
 	{
-		"Name": "preview",
-		"Summary": "Opens a preview pane to the side of your terminal when {F9} hotkey pressed",
-		"Version": "1.1",
-		"Source": "preview.mx",
+		"Name": "run",
+		"Summary": "Runs a preview pane to the side of your terminal when {F9} hotkey pressed",
+		"Version": "1.2",
+		"Source": "run.mx",
 		"Dependencies": {
+			"Optional": [],
 			"Required": [
 				"less",
 				"tsplit"
 			]
-		],
+		},
 		"Platform": [
 			"posix"
 		]
 	}
-}
 ]

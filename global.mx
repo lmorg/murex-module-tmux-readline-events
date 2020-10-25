@@ -1,17 +1,30 @@
 func tsplit {
     # Splits the current tmux session horizontally and runs a murex code block
+
+    test state cmd { $cmd }
+    test state pwd { $PWD }
+    
+    test state tmux {
+        (tmux split -h ($SHELL --load-modules -c (cd $PWD; clear; source $cmd)))
+    }
+
+    test state shell {
+        ($SHELL --load-modules -c (cd $PWD; clear; source $cmd))
+    }
+
     if { $TMUX } then {
         trypipe {
-            params -> [ 1 ] -> set cmd
-            #pwd -> set PWD
-            tmux split -h ($SHELL --load-modules -c "cd $PWD; source $cmd")
+            $ARGS[1] -> set cmd
+            pwd -> set PWD
+            tmux <state_cmd> <state_pwd> <state_tmux> <state_shell> \
+                split -h ($SHELL --load-modules -c (cd $PWD; clear; sleep 4; echo $cmd; source $cmd; sleep 4))
         }
     } else {
         err "tmux is not running."
     }
 }
 
-autocomplete set tmux { [
+autocomplete set tmux {[
     { "Dynamic": ({ tmux-commands }) },
     { "Dynamic": ({ tmux-subcommands }) }
 ]}
@@ -20,7 +33,7 @@ private tmux-commands {
     tmux start\; list-commands -> [:0]
 }
 
-test define-unit private tmux-commands {
+test unit private tmux-commands {
     "StdoutRegex": "([-a-z]+\\n)+"
 }
 
@@ -29,7 +42,7 @@ private tmux-subcommands {
     tmux start\; list-commands -> regexp m/$ARGS[1]/ -> regexp 'f#\[\-([-a-zA-Z0-9]+)#' -> foreach { -> jsplit "" -> format * } -> regexp m/[a-zA-Z0-9]/ -> prefix -
 }
 
-test define-unit private tmux-subcommands ({
+test unit private tmux-subcommands ({
     "Parameters": ["attach-session"],
     "StdoutRegex": "(-[a-zA-Z]\n)+"
 })

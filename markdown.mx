@@ -38,7 +38,7 @@ func md {
     }
 
     trypipe {
-        params -> [ 1 ] -> set doc
+        $ARGS[1] -> set doc
         #tsplit ({ $exe })
         tmux split -h $exe
     }; catch {

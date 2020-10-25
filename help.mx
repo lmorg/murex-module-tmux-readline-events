@@ -17,7 +17,7 @@ event onKeyPress help={F1-VT100} {
     }
 
     test define exists {
-        "StdoutRegex": ("Missing": null),
+        "StdoutRegex": ("Missing":null),
         "ExitNum": 0
     }
 
@@ -28,7 +28,7 @@ event onKeyPress help={F1-VT100} {
     }
 
     test state tmpfile {
-        out "tmp=$tmp"
+        out "$tmp"
     }
 
     test state vars {

@@ -1,0 +1,16 @@
+event onKeyPress run={F9} {
+    test state evt {
+        $evt
+    }
+
+    test state line {
+        $line
+    }
+
+    <stdin> -> set: evt
+    $evt -> [[ /Interrupt/Raw ]] -> set: line
+    
+    tsplit <state_evt> <state_line> ({
+        $line -> pretty: --strict -> less -RN
+    })
+}
