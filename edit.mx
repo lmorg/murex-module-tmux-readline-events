@@ -66,7 +66,7 @@ event onKeyPress edit={^E} {
                 case { and {$edit} {runtime: --funcs -> [ $parsed[FuncName] ]} } {
                     $parsed -> [ <test_hasfunc> FuncName ] -> set func
                     runtime: --funcs -> [ $func ] -> [ <test_funcblock> Block ] -> set code
-                    out "func $func {$code\n}" -> tmp -> set tmp
+                    out "function $func {$code\n}" -> tmp -> set tmp
                     
                     lockfile: path EDITOR -> set lockfile
                     lockfile: lock EDITOR

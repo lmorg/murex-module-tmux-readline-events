@@ -17,7 +17,7 @@ config define open markdown ({
     "Options":      $options
 })
 
-func md {
+function md {
     # Render markdown documents in the terminal
     set exe
     set file=$PWD/$ARGS[1]

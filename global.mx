@@ -1,4 +1,4 @@
-func tsplit {
+function tsplit {
     # Splits the current tmux session horizontally and runs a murex code block
 
     test state cmd { $cmd }

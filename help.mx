@@ -47,7 +47,7 @@ event onKeyPress help={F1-VT100} {
             switch {
                 case { runtime: --functions -> [ $func ] } {
                     runtime: --functions -> [ $func ] -> [ <test_code> Block ] -> set code
-                    out "func $func {$code\n}" -> tmp <test_tmpfile> -> set tmp
+                    out "function $func {$code\n}" -> tmp <test_tmpfile> -> set tmp
                     if { os linux } then {
                         tmux <state_vars> <state_tmpfile> split -h (less -N $tmp; rm $tmp)
                     } else {
