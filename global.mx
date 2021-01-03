@@ -30,6 +30,7 @@ autocomplete set tmux {[
 ]}
 
 private tmux-commands {
+    # Parse `tmux` command line arguements
     tmux start\; list-commands -> [:0]
 }
 
@@ -39,6 +40,7 @@ test unit private tmux-commands {
 
 
 private tmux-subcommands {
+    # Parses `tmux` command line arguements
     tmux start\; list-commands -> regexp m/$ARGS[1]/ -> regexp 'f#\[\-([-a-zA-Z0-9]+)#' -> foreach { -> jsplit "" -> format * } -> regexp m/[a-zA-Z0-9]/ -> prefix -
 }
 

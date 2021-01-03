@@ -13,7 +13,10 @@ if { $EDITOR } else {
     export EDITOR=$options[0]
 }
 
-private get.shell.editor { $EDITOR }
+private get.shell.editor {
+    # Returns $EDITOR
+    $EDITOR
+}
 
 config define shell editor ({
     "Description":  "Default text editor to use",
