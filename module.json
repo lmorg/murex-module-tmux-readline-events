@@ -38,12 +38,12 @@
 		"Source": "edit.mx",
 		"Dependencies": {
 			"Optional": [
+				"vi",
 				"vim",
 				"nano",
 				"emacs"
 			],
 			"Required": [
-				"vi",
 				"tsplit",
 				"tmux",
 				"rm"
