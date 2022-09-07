@@ -91,5 +91,20 @@
 		"Platform": [
 			"posix"
 		]
+	},
+	{
+		"Name": "split",
+		"Summary": "Split the tmux pain horrizontally or vertically",
+		"Version": "1.0",
+		"Source": "split.mx",
+		"Dependencies": {
+			"Optional": [],
+			"Required": [
+				"tmux"
+			]
+		},
+		"Platform": [
+			"posix"
+		]
 	}
 ]
