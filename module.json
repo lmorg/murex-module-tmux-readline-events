@@ -1,37 +1,5 @@
 [
 	{
-		"Name": "global-functions",
-		"Summary": "Some useful functions. Will be a dependency of the other modules in this package",
-		"Version": "1.5",
-		"Source": "global.mx",
-		"Dependencies": {
-			"Optional": [],
-			"Required": [
-				"tmux"
-			],
-			"Platform": [
-				"posix"
-			]
-		}
-	},
-	{
-		"Name": "help",
-		"Summary": "Provides help hotkey: {F1}",
-		"Version": "1.6",
-		"Source": "help.mx",
-		"Dependencies": {
-			"Optional": [],
-			"Required": [
-				"tmux",
-				"less",
-				"man"
-			],
-			"Platform": [
-				"posix"
-			]
-		}
-	},
-	{
 		"Name": "edit",
 		"Summary": "Provides edit hotkey: {CTRL+E} and `config` handler for $EDITOR",
 		"Version": "1.7",
@@ -77,24 +45,8 @@
 		}
 	},
 	{
-		"Name": "run",
-		"Summary": "Runs a preview pane to the side of your terminal when {F9} hotkey pressed",
-		"Version": "1.2",
-		"Source": "run.mx",
-		"Dependencies": {
-			"Optional": [],
-			"Required": [
-				"less",
-				"tsplit"
-			]
-		},
-		"Platform": [
-			"posix"
-		]
-	},
-	{
 		"Name": "split",
-		"Summary": "Split the tmux pain horrizontally or vertically",
+		"Summary": "Split the tmux pain horizontally or vertically",
 		"Version": "1.0",
 		"Source": "split.mx",
 		"Dependencies": {

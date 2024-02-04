@@ -1,10 +1,10 @@
 event onKeyPress split-horizontal={F12} {
-    -> [ Interrupt ] -> set: evt
+    -> [ Interrupt ] -> set evt
 
     if { $TMUX } then {
-        env -> !regexp (m/^TMUX/) -> prefix: "export (" -> suffix ")" -> tmp -> set tmpfile
-        echo: "cd $PWD" >> $tmpfile
-        echo: "rm $tmpfile" >> $tmpfile
+        env -> !regexp (m/^TMUX/) -> prefix "export (" -> suffix ")" -> tmp -> set tmpfile
+        echo "cd $PWD" >> $tmpfile
+        echo "rm $tmpfile" >> $tmpfile
 
         tmux split -h ($MUREX_EXE --load-modules -i -c ". $tmpfile")
   
@@ -17,9 +17,9 @@ event onKeyPress split-vertical={F10} {
     -> [ Interrupt ] -> set: evt
 
     if { $TMUX } then {
-        env -> !regexp (m/^TMUX/) -> prefix: "export (" -> suffix ")" -> tmp -> set tmpfile
-        echo: "cd $PWD" >> $tmpfile
-        echo: "rm $tmpfile" >> $tmpfile
+        env -> !regexp (m/^TMUX/) -> prefix "export (" -> suffix ")" -> tmp -> set tmpfile
+        echo "cd $PWD" >> $tmpfile
+        echo "rm $tmpfile" >> $tmpfile
 
         tmux split -v ($MUREX_EXE --load-modules -i -c ". $tmpfile")
   
