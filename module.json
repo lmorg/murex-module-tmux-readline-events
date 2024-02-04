@@ -47,7 +47,7 @@
 	{
 		"Name": "split",
 		"Summary": "Split the tmux pain horizontally or vertically",
-		"Version": "1.0",
+		"Version": "2.0",
 		"Source": "split.mx",
 		"Dependencies": {
 			"Optional": [],

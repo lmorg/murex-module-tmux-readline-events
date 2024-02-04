@@ -1,30 +1,30 @@
-event onKeyPress split-horizontal={F12} {
+event onKeyPress split-vertically={F8} {
     -> [ Interrupt ] -> set evt
 
     if { $TMUX } then {
-        env -> !regexp (m/^TMUX/) -> prefix "export (" -> suffix ")" -> tmp -> set tmpfile
+        env -> !regexp (m/^TMUX/) -> prefix "export %(" -> suffix ")" -> tmp -> set tmpfile
         echo "cd $PWD" >> $tmpfile
         echo "rm $tmpfile" >> $tmpfile
 
-        tmux split -h ($MUREX_EXE --load-modules -i -c ". $tmpfile")
+        tmux split -h %($MUREX_EXE --load-modules -i -c ". $tmpfile")
   
     } else {
-        tout json { "HintText": "tmux doesn't appear to be running. Please start tmux to take advantage of the F10 feature." }
+        tout json { "HintText": "tmux doesn't appear to be running. Please start tmux to take advantage of the F8 feature" }
     }
 }
 
-event onKeyPress split-vertical={F10} {
+event onKeyPress split-horizontally={F10} {
     -> [ Interrupt ] -> set: evt
 
     if { $TMUX } then {
-        env -> !regexp (m/^TMUX/) -> prefix "export (" -> suffix ")" -> tmp -> set tmpfile
+        env -> !regexp (m/^TMUX/) -> prefix "export %(" -> suffix ")" -> tmp -> set tmpfile
         echo "cd $PWD" >> $tmpfile
         echo "rm $tmpfile" >> $tmpfile
 
-        tmux split -v ($MUREX_EXE --load-modules -i -c ". $tmpfile")
+        tmux split -v %($MUREX_EXE --load-modules -i -c ". $tmpfile")
   
     } else {
-        tout json { "HintText": "tmux doesn't appear to be running. Please start tmux to take advantage of the F12 feature." }
+        tout json { "HintText": "tmux doesn't appear to be running. Please start tmux to take advantage of the F10 feature" }
     }
 }
 
