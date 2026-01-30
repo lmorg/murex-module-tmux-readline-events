@@ -1,9 +1,7 @@
 switch {
-    if { which bat } { out bat }
-
-    if {
-        and { which pandoc } { which lynx }
-    } { out pandoc-lynx }
+    if { which glow } { out glow }
+    if { which bat }  { out bat  }
+    if { which pandoc && which lynx } { out pandoc-lynx }
 
     if { which less } { out less }
     if { which more } { out more }
@@ -30,6 +28,10 @@ function md {
         case pandoc-lynx {
             set exe="pandoc $file -> lynx -stdin"
         }
+
+        case glow {
+            set exe="glow $file"
+        }
         
         case less { set exe="less $file" }
         case more { set exe="more $file" }
@@ -40,7 +42,7 @@ function md {
     trypipe {
         $ARGS[1] -> set doc
         #tsplit ({ $exe })
-        tmux split -h $exe
+        tmux split -v $exe
     }; catch {
         err "No parameters specified"
     }
